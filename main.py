@@ -3,6 +3,7 @@ import feedparser
 import os
 import sys
 import urllib
+from PIL import Image, ImageFont, ImageDraw
 
 
 def get_rss_entry(feed_url):
@@ -22,10 +23,10 @@ def get_rss_entry(feed_url):
 def process_rss_entry(entry, file_path):
     # Loops over all the links listed for entry
     for link in entry.links:
-
         # Finds the RSS enclosure (https://en.wikipedia.org/wiki/RSS_enclosure), saves the image and sets the background
         if link.rel == "enclosure":
             save_image(link.href, file_path)
+            add_image_title(file_path, entry.title)
             set_background(file_path)
             sys.exit()
 
@@ -45,6 +46,16 @@ def set_background(file_path):
         sys.exit()
 
     ctypes.windll.user32.SystemParametersInfoW(20, 0, file_path, 0)
+
+
+def add_image_title(file_path, title):
+    image = Image.open(file_path)
+    font = ImageFont.truetype('./Lato-BoldItalic.ttf', 30)
+
+    editable_image = ImageDraw.Draw(image)
+    editable_image.text((15, 15), title, (255, 153, 0), font)
+
+    image.save(file_path)
 
 
 def main():
