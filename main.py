@@ -50,7 +50,7 @@ def set_background(file_path):
 
 def add_image_title(file_path, title):
     image = Image.open(file_path)
-    font = ImageFont.truetype('./Lato-BoldItalic.ttf', 30)
+    font = ImageFont.truetype('./Lato-BoldItalic.ttf', 70)
 
     editable_image = ImageDraw.Draw(image)
     editable_image.text((15, 15), title, (255, 153, 0), font)
