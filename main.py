@@ -40,6 +40,27 @@ def save_image(link_href, file_path):
     urllib.request.urlretrieve(link_href, file_path)
 
 
+def get_font(image, title):
+    font_size = 1
+    jump_size = 75
+    img_fraction = 0.30
+    max_font_size = img_fraction * image.size[0]
+
+    font_path = "./Lato-BoldItalic.ttf"
+    font = ImageFont.truetype(font_path, font_size)
+    while True:
+        if font.getsize(title)[0] < max_font_size:
+            font_size += jump_size
+        else:
+            jump_size = jump_size // 2
+            font_size -= jump_size
+        font = ImageFont.truetype(font_path, font_size)
+        if jump_size <= 1:
+            break
+
+    return font
+
+
 def set_background(file_path):
     # Check if an image exists in the specified location and if not, exit
     if not os.path.exists(file_path):
@@ -50,11 +71,11 @@ def set_background(file_path):
 
 def add_image_title(file_path, title):
     image = Image.open(file_path)
-    font = ImageFont.truetype('./Lato-BoldItalic.ttf', 70)
-
     editable_image = ImageDraw.Draw(image)
-    editable_image.text((15, 15), title, (255, 153, 0), font)
 
+    font = get_font(image, title)
+
+    editable_image.text((15, 15), title, (255, 153, 0), font)
     image.save(file_path)
 
 
