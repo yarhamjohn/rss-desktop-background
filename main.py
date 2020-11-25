@@ -16,7 +16,17 @@ def get_rss_entry(feed_url):
         print("There were no entries in the provided RSS feed: " + feed_url)
         sys.exit()
 
-    # Retrieves all the links listed for the first entry (assumes first entry is most recent)
+    # Get the first entry that appears not to be of a person
+    # Based on the assumption that the majority of images of people have a title starting 'FirstName LastName: ...'
+    for entry in entries:
+        title = entry.title
+        title_might_contain_name = len(title.split(":")[0].split(" ")) == 2
+        if title_might_contain_name:
+            continue
+        else:
+            return entry
+
+    # As a backup, just return the first entry
     return entries[0]
 
 
