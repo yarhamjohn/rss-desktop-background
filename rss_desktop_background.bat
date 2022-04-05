@@ -1,1 +1,1 @@
-"%USERPROFILE%\AppData\Local\Programs\Python\Python39\python.exe" "./main.py" "https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss" "%USERPROFILE%\Pictures\Nasa Image of the Day"
+"%USERPROFILE%\AppData\Local\Programs\Python\Python39\python.exe" "./main2.py" "%NASA_API_KEY%" "%USERPROFILE%\Pictures\Nasa Image of the Day"
